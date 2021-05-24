@@ -21,7 +21,7 @@ const UserSchema = new Schema({
   },
   name: {
     type: Date,
-    defaukt: Date.now,
+    default: Date.now,
   },
 });
 
