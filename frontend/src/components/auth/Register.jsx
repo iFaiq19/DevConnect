@@ -1,6 +1,9 @@
-import React, { useState } from "react";
-import http from "../services/httpService";
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import classnames from "classnames";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { registerUser } from "../../redux/actions/authAction";
 
 const Register = (props) => {
   const [name, setName] = useState("");
@@ -18,14 +21,13 @@ const Register = (props) => {
       password2: password2,
     };
 
-    http
-      .post("/api/users/register", newUser)
-      .then((res) => console.log(res.data))
-      .catch((err) => {
-        const newError = err.response.data;
-        setErrors(newError);
-      });
+    props.registerUser(newUser, props.history);
   }
+  useEffect(() => {
+    if (props.errors) {
+      setErrors(props.errors);
+    }
+  });
 
   return (
     <div className="register">
@@ -119,4 +121,26 @@ const Register = (props) => {
   );
 };
 
-export default Register;
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+};
+
+//Comes from root reducer
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+    errors: state.errors,
+  };
+};
+
+// Reduced from auth files
+const mapDispatchToProps = {
+  registerUser,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(Register));

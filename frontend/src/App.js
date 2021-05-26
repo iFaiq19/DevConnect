@@ -10,6 +10,7 @@ import Landing from "./components/layout/Landing";
 import NotFound from "./components/common/notFound.jsx";
 import Login from "./components/auth/Login.jsx";
 import Register from "./components/auth/Register.jsx";
+import Store from "./redux/store/store";
 
 import "./App.css";
 
