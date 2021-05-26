@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import http from "../services/httpService";
+import classnames from "classnames";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -11,7 +13,14 @@ const Login = (props) => {
       email: email,
       password: password,
     };
-    console.log(User);
+
+    http
+      .post("/api/users/login", User)
+      .then((res) => console.log(res.data))
+      .catch((err) => {
+        const newError = err.response.data;
+        setErrors(newError);
+      });
   }
 
   return (
@@ -24,25 +33,36 @@ const Login = (props) => {
               Sign in to your DevConnector account
             </p>
             <form onSubmit={onSubmit}>
-              <div className="form-group">
+              <div className="form-group mb-3">
                 <input
                   type="email"
-                  className="form-control form-control-lg mb-3"
+                  className={classnames("form-control form-control-lg", {
+                    "is-invalid": errors.email,
+                  })}
                   placeholder="Email Address"
                   name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
+                {errors.email && (
+                  <div className="invalid-feedback">{errors.email}</div>
+                )}
               </div>
-              <div className="form-group">
+
+              <div className="form-group mb-3">
                 <input
                   type="password"
-                  className="form-control form-control-lg mb-3"
+                  className={classnames("form-control form-control-lg", {
+                    "is-invalid": errors.password,
+                  })}
                   placeholder="Password"
                   name="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
+                {errors.password && (
+                  <div className="invalid-feedback">{errors.password}</div>
+                )}
               </div>
               <button
                 type="submit"
