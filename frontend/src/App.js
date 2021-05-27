@@ -14,7 +14,10 @@ import Dasboard from "./components/layout/Dashboard.jsx";
 import Store from "./redux/store/store";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken.js";
-import { setCurrentUser } from "./redux/actions/authAction.js";
+import {
+  logoutCurrentUser,
+  setCurrentUser,
+} from "./redux/actions/authAction.js";
 
 import "./App.css";
 
@@ -27,6 +30,16 @@ if (localStorage.jwtToken) {
   const decoded = jwt_decode(userToken);
   //Set user and isAuthenticated
   Store.dispatch(setCurrentUser(decoded));
+
+  //Check for expired token
+  const currentTime = Date.now() / 1000;
+  if (decoded.exp < currentTime) {
+    //Logout user
+    Store.dispatch(logoutCurrentUser);
+    //TODO: Clear current profile
+    //Redirect to login
+    window.location.href("/login");
+  }
 }
 
 function App() {

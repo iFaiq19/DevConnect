@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import classnames from "classnames";
 import { loginUser } from "../../redux/actions/authAction";
 import { connect } from "react-redux";
-import { withRouter, useHistory, useNavigate } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const Login = (props) => {
@@ -21,9 +21,13 @@ const Login = (props) => {
 
     props.loginUser(User);
   }
+
   useEffect(() => {
     if (props.errors) {
       setErrors(props.errors);
+    }
+    if (props.auth.isAuthenticated) {
+      history.push("/dashboard");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   });

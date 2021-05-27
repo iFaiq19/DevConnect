@@ -31,10 +31,20 @@ export const loginUser = (userData) => (dispatch) => {
 };
 
 
+// logout
+export const logoutCurrentUser = () => (dispatch) => {
+  //Remove Token from localStorage
+  localStorage.removeItem("jwtToken");
+  //Remove auth header
+  setAuthToken(false);
+  //Set current user to empty and isAuthenticated to false
+  dispatch(setCurrentUser({}))
+};
+
 // Set Login user
 export const setCurrentUser = (decoded) => {
   return {
     type: SET_CURRENT_USER,
-    payload:decoded
-  }
-} 
+    payload: decoded,
+  };
+};

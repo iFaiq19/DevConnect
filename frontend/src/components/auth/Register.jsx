@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
-import { withRouter } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { registerUser } from "../../redux/actions/authAction";
 
@@ -11,6 +11,8 @@ const Register = (props) => {
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [errors, setErrors] = useState({});
+
+  const history = useHistory();
 
   function onSubmit(e) {
     e.preventDefault();
@@ -27,6 +29,10 @@ const Register = (props) => {
   useEffect(() => {
     if (props.errors) {
       setErrors(props.errors);
+    }
+
+    if (props.auth.isAuthenticated) {
+      history.push("/dashboard");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   });
