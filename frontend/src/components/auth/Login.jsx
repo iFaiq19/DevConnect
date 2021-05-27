@@ -21,10 +21,15 @@ const Login = (props) => {
   }
 
   useEffect(() => {
+    if (props.auth.isAuthenticated) {
+      props.history.push("/dashboard");
+    }
+
     if (props.errors) {
       setErrors(props.errors);
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="login">

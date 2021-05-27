@@ -23,11 +23,13 @@ const Register = (props) => {
 
     props.registerUser(newUser, props.history);
   }
+
   useEffect(() => {
     if (props.errors) {
       setErrors(props.errors);
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="register">
