@@ -29,7 +29,7 @@ const Register = (props) => {
       setErrors(props.errors);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
 
   return (
     <div className="register">

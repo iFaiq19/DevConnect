@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import classnames from "classnames";
 import { loginUser } from "../../redux/actions/authAction";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, useHistory, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const Login = (props) => {
+  const history = useHistory();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -19,17 +21,16 @@ const Login = (props) => {
 
     props.loginUser(User);
   }
-
   useEffect(() => {
-    if (props.auth.isAuthenticated) {
-      props.history.push("/dashboard");
-    }
-
     if (props.errors) {
       setErrors(props.errors);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
+
+  if (props.auth.isAuthenticated) {
+    history.push("/dashboard");
+  }
 
   return (
     <div className="login">
