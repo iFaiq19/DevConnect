@@ -1,6 +1,9 @@
-import React, { useState } from "react";
-import http from "../services/httpService";
+import React, { useState, useEffect } from "react";
 import classnames from "classnames";
+import { loginUser } from "../../redux/actions/authAction";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -14,14 +17,14 @@ const Login = (props) => {
       password: password,
     };
 
-    http
-      .post("/api/users/login", User)
-      .then((res) => console.log(res.data))
-      .catch((err) => {
-        const newError = err.response.data;
-        setErrors(newError);
-      });
+    props.loginUser(User);
   }
+
+  useEffect(() => {
+    if (props.errors) {
+      setErrors(props.errors);
+    }
+  });
 
   return (
     <div className="login">
@@ -78,4 +81,23 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+};
+
+//Comes from root reducer
+const mapStateToProps = (state) => {
+  return {
+    errors: state.errors,
+    auth: state.auth,
+  };
+};
+
+// Reduced from auth files
+const mapDispatchToProps = {
+  loginUser,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));
