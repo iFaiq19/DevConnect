@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutCurrentUser } from "./../../redux/actions/authAction";
+import { clearCurrentProfile } from "./../../redux/actions/profileAction";
 
 const Navbar = (props) => {
   const history = useHistory();
@@ -11,6 +12,7 @@ const Navbar = (props) => {
   function onLogout(e) {
     e.preventDefault();
     props.logoutCurrentUser();
+    props.clearCurrentProfile();
     history.push("/");
   }
 
@@ -97,6 +99,7 @@ const mapStateToProps = (state) => {
 // Reduced from auth files
 const mapDispatchToProps = {
   logoutCurrentUser,
+  clearCurrentProfile,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

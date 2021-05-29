@@ -18,6 +18,7 @@ import {
   logoutCurrentUser,
   setCurrentUser,
 } from "./redux/actions/authAction.js";
+import { clearCurrentProfile } from "./redux/actions/profileAction";
 
 import "./App.css";
 
@@ -35,8 +36,9 @@ if (localStorage.jwtToken) {
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
     //Logout user
-    Store.dispatch(logoutCurrentUser);
-    //TODO: Clear current profile
+    Store.dispatch(logoutCurrentUser());
+    //Clear current profile
+    Store.dispatch(clearCurrentProfile());
     //Redirect to login
     window.location.href("/login");
   }
