@@ -22,6 +22,7 @@ import { clearCurrentProfile } from "./redux/actions/profileAction";
 import PrivateRoute from "./components/common/PrivateRoute.jsx";
 
 import "./App.css";
+import CreateProfile from "./components/layout/CreateProfile.jsx";
 
 //Check for token
 if (localStorage.jwtToken) {
@@ -56,6 +57,7 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Register} />
           <PrivateRoute path="/dashboard" component={Dasboard} />
+          <PrivateRoute path="/create-profile" component={CreateProfile} />
           <Route path="/not-found" component={NotFound} />
           <Redirect to="/not-found" />
         </Switch>
