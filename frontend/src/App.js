@@ -19,6 +19,7 @@ import {
   setCurrentUser,
 } from "./redux/actions/authAction.js";
 import { clearCurrentProfile } from "./redux/actions/profileAction";
+import PrivateRoute from "./components/common/PrivateRoute.jsx";
 
 import "./App.css";
 
@@ -54,7 +55,7 @@ function App() {
           <Route path="/" exact component={Landing} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Register} />
-          <Route path="/dashboard" component={Dasboard} />
+          <PrivateRoute path="/dashboard" component={Dasboard} />
           <Route path="/not-found" component={NotFound} />
           <Redirect to="/not-found" />
         </Switch>
