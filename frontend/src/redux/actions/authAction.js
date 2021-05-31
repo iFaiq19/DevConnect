@@ -1,14 +1,21 @@
 import http from "../../components/services/httpService";
 import setAuthToken from "../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
-import { GET_ERRORS, SET_CURRENT_USER } from "./types";
+import {
+  GET_ERRORS,
+  SET_CURRENT_USER,
+  GET_LOGIN_ERRORS,
+  GET_SIGNUP_ERRORS,
+} from "./types";
 
 // Register user
 export const registerUser = (userData, history) => (dispatch) => {
   http
     .post("/api/users/register", userData)
     .then((res) => history.push("/login"))
-    .catch((err) => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+    .catch((errSignup) =>
+      dispatch({ type: GET_SIGNUP_ERRORS, payload: errSignup.response.data })
+    );
 };
 
 // Login - Get user token
@@ -27,9 +34,10 @@ export const loginUser = (userData) => (dispatch) => {
       //Set current user
       dispatch(setCurrentUser(decoded));
     })
-    .catch((err) => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+    .catch((errLogin) =>
+      dispatch({ type: GET_LOGIN_ERRORS, payload: errLogin.response.data })
+    );
 };
-
 
 // logout
 export const logoutCurrentUser = () => (dispatch) => {
@@ -38,7 +46,7 @@ export const logoutCurrentUser = () => (dispatch) => {
   //Remove auth header
   setAuthToken(false);
   //Set current user to empty and isAuthenticated to false
-  dispatch(setCurrentUser({}))
+  dispatch(setCurrentUser({}));
 };
 
 // Set Login user

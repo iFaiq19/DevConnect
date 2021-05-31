@@ -94,7 +94,7 @@ Login.propTypes = {
 //Comes from root reducer
 const mapStateToProps = (state) => {
   return {
-    errors: state.errors,
+    errors: state.errors.loginErrors,
     auth: state.auth,
   };
 };

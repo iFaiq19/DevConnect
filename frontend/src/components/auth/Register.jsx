@@ -115,7 +115,7 @@ Register.propTypes = {
 const mapStateToProps = (state) => {
   return {
     auth: state.auth,
-    errors: state.errors,
+    errors: state.errors.signupErrors,
   };
 };
 
