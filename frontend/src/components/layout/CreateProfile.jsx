@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import TextFieldGroup from "../common/TextFieldGroup";
 import { Link } from "react-router-dom";
+import SelectListGroup from "./../common/SelectListGroup";
+import TextAreaFieldGroup from "./../common/TextAreaFieldGroup";
+import InputGroup from "./../common/InputGroup";
 
 const CreateProfile = (props) => {
   const [state, setState] = useState({
@@ -20,8 +23,94 @@ const CreateProfile = (props) => {
     linkedin: "",
     youtube: "",
     instagram: "",
-    errors: {},
   });
+
+  const [errors, setErrors] = useState({});
+
+  const options = [
+    { label: "* Select Professional Status", value: "0" },
+    { label: "Developer", value: "Developer" },
+    { label: "Junior Developer", value: "Junior Developer" },
+    { label: "Senior Developer", value: "Senior Developer" },
+    { label: "Manager", value: "Manager" },
+    { label: "Student or Learning", value: "Student or Learning" },
+    { label: "Instructor or Teacher", value: "Instructor or Teacher" },
+    { label: "Intern", value: "Intern" },
+    { label: "Other", value: "Other" },
+  ];
+
+  function onChange(e) {
+    setState({ ...state, [e.target.name]: e.target.value });
+  }
+
+  function onSubmit(e) {
+    e.preventDefault();
+    console.log("submitted", state, console.log(errors));
+  }
+
+  useEffect(() => {
+    if (props.errors) {
+      setErrors(props.errors);
+    }
+
+    return () => {
+      setErrors({});
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.errors]);
+
+  let socialInputs;
+
+  if (state.displaySocialInputs) {
+    socialInputs = (
+      <div>
+        <InputGroup
+          placeholder="Twitter Profile URL"
+          name="twitter"
+          icon="fab fa-twitter"
+          value={state.twitter}
+          onChange={onChange}
+          error={errors.twitter}
+        />
+
+        <InputGroup
+          placeholder="Facebook Page URL"
+          name="facebook"
+          icon="fab fa-facebook"
+          value={state.facebook}
+          onChange={onChange}
+          error={errors.facebook}
+        />
+
+        <InputGroup
+          placeholder="Linkedin Profile URL"
+          name="linkedin"
+          icon="fab fa-linkedin"
+          value={state.linkedin}
+          onChange={onChange}
+          error={errors.linkedin}
+        />
+
+        <InputGroup
+          placeholder="YouTube Channel URL"
+          name="youtube"
+          icon="fab fa-youtube"
+          value={state.youtube}
+          onChange={onChange}
+          error={errors.youtube}
+        />
+
+        <InputGroup
+          placeholder="Instagram Page URL"
+          name="instagram"
+          icon="fab fa-instagram"
+          value={state.instagram}
+          onChange={onChange}
+          error={errors.instagram}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="create-profile">
@@ -36,181 +125,105 @@ const CreateProfile = (props) => {
               Let's get some information to make your profile stand out
             </p>
             <small className="d-block pb-3">* = required field</small>
-            <form omSubmit={console.log(state)}>
+            <form noValidate onSubmit={onSubmit}>
               <TextFieldGroup
                 name="handle"
                 placeholder="* Profile handle"
                 value={state.handle}
                 type="text"
-                onChange={(e) => setState({ ...state, handle: e.target.value })}
-                info="A unique handle for your profile URL. Your full name, company
-                  name, nickname, etc (This CAN'T be changed later)"
+                onChange={onChange}
+                info="A unique handle for your profile URL. Your full name, company name, nickname, etc (This CAN'T be changed later)"
+                error={errors.handle}
               />
-              <div className="form-group">
-                <select className="form-control form-control-lg" name="status">
-                  <option value="0">* Select Professional Status</option>
-                  <option value="Developer">Developer</option>
-                  <option value="Junior Developer">Junior Developer</option>
-                  <option value="Senior Developer">Senior Developer</option>
-                  <option value="Manager">Manager</option>
-                  <option value="Student or Learning">
-                    Student or Learning
-                  </option>
-                  <option value="Instructor">Instructor or Teacher</option>
-                  <option value="Intern">Intern</option>
-                  <option value="Other">Other</option>
-                </select>
-                <small className="form-text text-muted">
-                  Give us an idea of where you are at in your career
-                </small>
-              </div>
-                <TextFieldGroup
-                  name="company"
-                  placeholder="Company"
-                  value={state.company}
-                  type="text"
-                  onChange={(e) =>
-                    setState({ ...state, company: e.target.value })
-                  }
-                  info="Could be your own company or one you work for"
-                />
-              <div className="form-group">
-                <TextFieldGroup
-                  name="website"
-                  placeholder="Webiste"
-                  value={state.website}
-                  type="text"
-                  onChange={(e) =>
-                    setState({ ...state, website: e.target.value })
-                  }
-                />
-                <small className="form-text text-muted">
-                  Could be your own or a company website
-                </small>
-              </div>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control form-control-lg"
-                  placeholder="Location"
-                  name="location"
-                />
-                <small className="form-text text-muted">
-                  City & state suggested (eg. Boston, MA)
-                </small>
-              </div>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control form-control-lg"
-                  placeholder="Skills"
-                  name="skills"
-                />
-                <small className="form-text text-muted">
-                  Please use comma separated values (eg.
-                  HTML,CSS,JavaScript,PHP)
-                </small>
-              </div>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control form-control-lg"
-                  placeholder="Github Username"
-                  name="githubusername"
-                />
-                <small className="form-text text-muted">
-                  If you want your latest repos and a Github link, include your
-                  username
-                </small>
-              </div>
-              <div className="form-group">
-                <textarea
-                  className="form-control form-control-lg"
-                  placeholder="A short bio of yourself"
-                  name="bio"
-                ></textarea>
-                <small className="form-text text-muted">
-                  Tell us a little about yourself
-                </small>
-              </div>
 
+              <SelectListGroup
+                name="status"
+                placeholder="Status"
+                value={state.status}
+                onChange={onChange}
+                info="Give us an idea of where you are at in your career."
+                error={errors.status}
+                options={options}
+              />
+
+              <TextFieldGroup
+                name="company"
+                placeholder="Company"
+                value={state.company}
+                type="text"
+                onChange={onChange}
+                info="Could be your own company or one you work for"
+                error={errors.company}
+              />
+
+              <TextFieldGroup
+                name="website"
+                placeholder="Webiste"
+                value={state.website}
+                type="text"
+                onChange={onChange}
+                info="Could be your own or a company website"
+                error={errors.website}
+              />
+
+              <TextFieldGroup
+                name="location"
+                placeholder="Location"
+                value={state.location}
+                type="text"
+                onChange={onChange}
+                info="City & state suggested (eg. Boston, MA)"
+                error={errors.location}
+              />
+
+              <TextFieldGroup
+                name="skills"
+                placeholder="Skills"
+                value={state.skills}
+                type="text"
+                onChange={onChange}
+                info="Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)"
+                error={errors.skills}
+              />
+
+              <TextFieldGroup
+                name="githubusername"
+                placeholder="Github Username"
+                value={state.githubusername}
+                type="text"
+                onChange={onChange}
+                info="If you want your latest repos and a Github link, include your username"
+                error={errors.githubusername}
+              />
+
+              <TextAreaFieldGroup
+                name="bio"
+                placeholder="A short bio of yourself"
+                value={state.bio}
+                onChange={onChange}
+                info="Tell us a little about yourself"
+                error={errors.githubusername}
+              />
               <div className="mb-3">
-                <button type="button" className="btn btn-light">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setState((prevState) => ({
+                      displaySocialInputs: !prevState.displaySocialInputs,
+                    }));
+                  }}
+                  className="btn btn-light"
+                >
                   Add Social Network Links
                 </button>
                 <span className="text-muted">Optional</span>
               </div>
-
-              <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">
-                    <i className="fab fa-twitter"></i>
-                  </span>
-                </div>
-                <input
-                  type="text"
-                  className="form-control form-control-lg"
-                  placeholder="Twitter Profile URL"
-                  name="twitter"
-                />
-              </div>
-
-              <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">
-                    <i className="fab fa-facebook"></i>
-                  </span>
-                </div>
-                <input
-                  type="text"
-                  className="form-control form-control-lg"
-                  placeholder="Facebook Page URL"
-                  name="facebook"
-                />
-              </div>
-
-              <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">
-                    <i className="fab fa-linkedin"></i>
-                  </span>
-                </div>
-                <input
-                  type="text"
-                  className="form-control form-control-lg"
-                  placeholder="Linkedin Profile URL"
-                  name="linkedin"
-                />
-              </div>
-
-              <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">
-                    <i className="fab fa-youtube"></i>
-                  </span>
-                </div>
-                <input
-                  type="text"
-                  className="form-control form-control-lg"
-                  placeholder="YouTube Channel URL"
-                  name="youtube"
-                />
-              </div>
-
-              <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">
-                    <i className="fab fa-instagram"></i>
-                  </span>
-                </div>
-                <input
-                  type="text"
-                  className="form-control form-control-lg"
-                  placeholder="Instagram Page URL"
-                  name="instagram"
-                />
-              </div>
-              <input type="submit" className="btn btn-info btn-block mt-4" />
+              {socialInputs}
+              <input
+                type="submit"
+                value="Submit"
+                className="btn btn-info btn-block mt-4"
+              />
             </form>
           </div>
         </div>

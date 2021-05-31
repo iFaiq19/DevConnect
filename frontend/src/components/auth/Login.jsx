@@ -53,7 +53,7 @@ const Login = (props) => {
             <p className="lead text-center mb-3">
               Sign in to your DevConnector account
             </p>
-            <form onSubmit={onSubmit}>
+            <form noValidate onSubmit={onSubmit}>
               <TextFieldGroup
                 name="email"
                 placeholder="Email Address"
