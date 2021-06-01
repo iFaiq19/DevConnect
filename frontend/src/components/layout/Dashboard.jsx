@@ -15,7 +15,7 @@ const Dasboard = (props) => {
 
   let dashboardContent;
 
-  if (profile === null || loading && props.auth.isAuthenticated) {
+  if (profile === null || (loading && props.auth.isAuthenticated)) {
     dashboardContent = <Spinner />;
   } else {
     if (Object.keys(profile).length > 0) {

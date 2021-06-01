@@ -30,10 +30,6 @@ const Register = (props) => {
     if (props.errors) {
       setErrors(props.errors);
     }
-
-    return () => {
-      setErrors({});
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.errors]);
 

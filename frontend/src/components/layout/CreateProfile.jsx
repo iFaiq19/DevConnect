@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
-import TextFieldGroup from "../common/TextFieldGroup";
 import { Link } from "react-router-dom";
+import { createProfile } from "../../redux/actions/profileAction";
+import { withRouter } from "react-router-dom";
+import InputGroup from "./../common/InputGroup";
+import TextFieldGroup from "../common/TextFieldGroup";
 import SelectListGroup from "./../common/SelectListGroup";
 import TextAreaFieldGroup from "./../common/TextAreaFieldGroup";
-import InputGroup from "./../common/InputGroup";
 
 const CreateProfile = (props) => {
   const [state, setState] = useState({
@@ -45,17 +47,30 @@ const CreateProfile = (props) => {
 
   function onSubmit(e) {
     e.preventDefault();
-    console.log("submitted", state, console.log(errors));
+    const newProfile = {
+      handle: state.handle,
+      company: state.company,
+      website: state.website,
+      location: state.location,
+      status: state.status,
+      skills: state.skills,
+      githubusername: state.githubusername,
+      bio: state.bio,
+      twitter: state.twitter,
+      facebook: state.facebook,
+      linkedin: state.linkedin,
+      youtube: state.youtube,
+      instagram: state.instagram,
+    };
+    props.createProfile(newProfile);
+
+    console.log(errors, newProfile);
   }
 
   useEffect(() => {
     if (props.errors) {
       setErrors(props.errors);
     }
-
-    return () => {
-      setErrors({});
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.errors]);
 
@@ -67,7 +82,7 @@ const CreateProfile = (props) => {
         <InputGroup
           placeholder="Twitter Profile URL"
           name="twitter"
-          icon="fab fa-twitter"
+          icon="fab fa-twitter fa-fw"
           value={state.twitter}
           onChange={onChange}
           error={errors.twitter}
@@ -76,7 +91,7 @@ const CreateProfile = (props) => {
         <InputGroup
           placeholder="Facebook Page URL"
           name="facebook"
-          icon="fab fa-facebook"
+          icon="fab fa-facebook fa-fw"
           value={state.facebook}
           onChange={onChange}
           error={errors.facebook}
@@ -85,7 +100,7 @@ const CreateProfile = (props) => {
         <InputGroup
           placeholder="Linkedin Profile URL"
           name="linkedin"
-          icon="fab fa-linkedin"
+          icon="fab fa-linkedin fa-fw"
           value={state.linkedin}
           onChange={onChange}
           error={errors.linkedin}
@@ -94,7 +109,7 @@ const CreateProfile = (props) => {
         <InputGroup
           placeholder="YouTube Channel URL"
           name="youtube"
-          icon="fab fa-youtube"
+          icon="fab fa-youtube fa-fw"
           value={state.youtube}
           onChange={onChange}
           error={errors.youtube}
@@ -103,7 +118,7 @@ const CreateProfile = (props) => {
         <InputGroup
           placeholder="Instagram Page URL"
           name="instagram"
-          icon="fab fa-instagram"
+          icon="fab fa-instagram fa-fw"
           value={state.instagram}
           onChange={onChange}
           error={errors.instagram}
@@ -178,7 +193,7 @@ const CreateProfile = (props) => {
 
               <TextFieldGroup
                 name="skills"
-                placeholder="Skills"
+                placeholder="* Skills"
                 value={state.skills}
                 type="text"
                 onChange={onChange}
@@ -233,6 +248,7 @@ const CreateProfile = (props) => {
 };
 
 CreateProfile.propTypes = {
+  createProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
 };
@@ -240,10 +256,15 @@ CreateProfile.propTypes = {
 //Comes from root reducer
 const mapStateToProps = (state) => ({
   profile: state.profile,
-  errors: state.errors,
+  errors: state.errors.profileErrors,
 });
 
 // Reduced from action files
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  createProfile,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateProfile);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(CreateProfile));

@@ -1,16 +1,16 @@
-import axios from "axios";
+import http from "../../components/services/httpService";
 
 import {
   GET_PROFILE,
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
-  GET_ERRORS,
+  GET_PROFILE_ERRORS,
 } from "./types";
 
 // Get current profile
 export const getCurrentProfile = () => (dispatch) => {
   dispatch(setProfileLoading());
-  axios
+  http
     .get("/api/profile")
     .then((res) =>
       dispatch({
@@ -26,6 +26,16 @@ export const getCurrentProfile = () => (dispatch) => {
     );
 };
 
+
+// Create profile
+export const createProfile = (profileData, history) => (dispatch) => {
+  http
+    .post("/api/profile", profileData)
+    .then((res) => history.push("/dashboard"))
+    .catch((errProfile) =>
+      dispatch({ type: GET_PROFILE_ERRORS, payload: errProfile.response.data })
+    );
+};
 // Profile loading
 export const setProfileLoading = () => {
   return {
