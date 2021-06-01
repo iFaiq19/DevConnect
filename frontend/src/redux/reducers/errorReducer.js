@@ -2,15 +2,12 @@ import {
   GET_LOGIN_ERRORS,
   GET_SIGNUP_ERRORS,
   GET_PROFILE_ERRORS,
-  GET_ERRORS,
 } from "./../actions/types";
 
-const initialState = {};
+const initialState = { profileErrors: {}, loginErrors: {}, signupErrors: {} };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case GET_ERRORS:
-      return action.payload;
     case GET_PROFILE_ERRORS:
       return {
         ...state,

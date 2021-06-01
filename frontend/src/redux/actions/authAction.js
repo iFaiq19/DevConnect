@@ -2,7 +2,6 @@ import http from "../../components/services/httpService";
 import setAuthToken from "../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import {
-  GET_ERRORS,
   SET_CURRENT_USER,
   GET_LOGIN_ERRORS,
   GET_SIGNUP_ERRORS,

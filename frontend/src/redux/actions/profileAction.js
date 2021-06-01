@@ -36,6 +36,7 @@ export const createProfile = (profileData, history) => (dispatch) => {
       dispatch({ type: GET_PROFILE_ERRORS, payload: errProfile.response.data })
     );
 };
+
 // Profile loading
 export const setProfileLoading = () => {
   return {
