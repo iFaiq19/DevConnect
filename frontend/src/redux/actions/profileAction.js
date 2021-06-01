@@ -1,3 +1,4 @@
+import axios from "axios";
 import http from "../../components/services/httpService";
 
 import {
@@ -26,14 +27,16 @@ export const getCurrentProfile = () => (dispatch) => {
     );
 };
 
-
 // Create profile
 export const createProfile = (profileData, history) => (dispatch) => {
-  http
+  axios
     .post("/api/profile", profileData)
     .then((res) => history.push("/dashboard"))
     .catch((errProfile) =>
-      dispatch({ type: GET_PROFILE_ERRORS, payload: errProfile.response.data })
+      dispatch({
+        type: GET_PROFILE_ERRORS,
+        payload: errProfile.response.data,
+      })
     );
 };
 

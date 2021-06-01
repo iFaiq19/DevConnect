@@ -4,7 +4,7 @@ import {
   GET_PROFILE_ERRORS,
 } from "./../actions/types";
 
-const initialState = { profileErrors: {}, loginErrors: {}, signupErrors: {} };
+const initialState = {profileErrors:{}, loginErrors:{}, signupErrors:{}};
 
 export default function (state = initialState, action) {
   switch (action.type) {

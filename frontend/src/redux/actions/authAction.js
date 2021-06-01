@@ -1,11 +1,7 @@
 import http from "../../components/services/httpService";
 import setAuthToken from "../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
-import {
-  SET_CURRENT_USER,
-  GET_LOGIN_ERRORS,
-  GET_SIGNUP_ERRORS,
-} from "./types";
+import { SET_CURRENT_USER, GET_LOGIN_ERRORS, GET_SIGNUP_ERRORS } from "./types";
 
 // Register user
 export const registerUser = (userData, history) => (dispatch) => {

@@ -62,9 +62,7 @@ const CreateProfile = (props) => {
       youtube: state.youtube,
       instagram: state.instagram,
     };
-    props.createProfile(newProfile);
-
-    console.log(errors, newProfile);
+    props.createProfile(newProfile, props.history);
   }
 
   useEffect(() => {
