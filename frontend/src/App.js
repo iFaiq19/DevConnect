@@ -10,7 +10,6 @@ import Landing from "./components/layout/Landing";
 import NotFound from "./components/common/notFound.jsx";
 import Login from "./components/auth/Login.jsx";
 import Register from "./components/auth/Register.jsx";
-import Dasboard from "./components/layout/Dashboard.jsx";
 import Store from "./redux/store/store";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken.js";
@@ -20,9 +19,10 @@ import {
 } from "./redux/actions/authAction.js";
 import { clearCurrentProfile } from "./redux/actions/profileAction";
 import PrivateRoute from "./components/common/PrivateRoute.jsx";
+import CreateProfile from "./components/layout/CreateProfile.jsx";
+import Dashboard from "./components/dashboard/Dashboard.jsx";
 
 import "./App.css";
-import CreateProfile from "./components/layout/CreateProfile.jsx";
 
 //Check for token
 if (localStorage.jwtToken) {
@@ -56,7 +56,7 @@ function App() {
           <Route path="/" exact component={Landing} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Register} />
-          <PrivateRoute path="/dashboard" component={Dasboard} />
+          <PrivateRoute path="/dashboard" component={Dashboard} />
           <PrivateRoute path="/create-profile" component={CreateProfile} />
           <Route path="/not-found" component={NotFound} />
           <Redirect to="/not-found" />
