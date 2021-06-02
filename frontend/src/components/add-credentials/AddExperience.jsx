@@ -5,7 +5,6 @@ import TextAreaFieldGroup from "./../common/TextAreaFieldGroup";
 import TextFieldGroup from "./../common/TextFieldGroup";
 import PropTypes from "prop-types";
 
-
 const AddExperience = (props) => {
   const [state, setState] = useState({
     company: "",
