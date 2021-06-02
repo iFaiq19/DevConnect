@@ -23,6 +23,7 @@ import CreateProfile from "./components/layout/CreateProfile.jsx";
 import Dashboard from "./components/dashboard/Dashboard.jsx";
 
 import "./App.css";
+import EditProfile from "./components/edit-profile/EditProfile.jsx";
 
 //Check for token
 if (localStorage.jwtToken) {
@@ -58,6 +59,7 @@ function App() {
           <Route path="/signup" component={Register} />
           <PrivateRoute path="/dashboard" component={Dashboard} />
           <PrivateRoute path="/create-profile" component={CreateProfile} />
+          <PrivateRoute path="/edit-profile" component={EditProfile} />
           <Route path="/not-found" component={NotFound} />
           <Redirect to="/not-found" />
         </Switch>
