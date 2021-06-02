@@ -24,6 +24,8 @@ import Dashboard from "./components/dashboard/Dashboard.jsx";
 
 import "./App.css";
 import EditProfile from "./components/edit-profile/EditProfile.jsx";
+import AddEducation from './components/add-credentials/AddEducation';
+import AddExperience from './components/add-credentials/AddExperience';
 
 //Check for token
 if (localStorage.jwtToken) {
@@ -60,6 +62,8 @@ function App() {
           <PrivateRoute path="/dashboard" component={Dashboard} />
           <PrivateRoute path="/create-profile" component={CreateProfile} />
           <PrivateRoute path="/edit-profile" component={EditProfile} />
+          <PrivateRoute path="/add-experience" component={AddExperience} />
+          <PrivateRoute path="/add-education" component={AddEducation} />
           <Route path="/not-found" component={NotFound} />
           <Redirect to="/not-found" />
         </Switch>
