@@ -88,3 +88,16 @@ export const addExperience = (expData, history) => (dispatch) => {
       })
     );
 };
+
+// Add Education
+export const addEducation = (eduData, history) => (dispatch) => {
+  http
+    .post("/api/profile/education", eduData)
+    .then((res) => history.push("/dashboard"))
+    .catch((errDash) =>
+      dispatch({
+        type: GET_DASHBOARD_ERRORS,
+        payload: errDash.response.data,
+      })
+    );
+};
