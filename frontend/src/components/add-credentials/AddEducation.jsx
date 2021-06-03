@@ -152,6 +152,7 @@ const mapStateToProps = (state) => ({
   errors: state.errors.dashboardErrors,
 });
 
+
 // Reduced from action files
 const mapDispatchToProps = { addEducation };
 
