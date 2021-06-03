@@ -4,6 +4,7 @@ import { Link, withRouter } from "react-router-dom";
 import TextAreaFieldGroup from "./../common/TextAreaFieldGroup";
 import TextFieldGroup from "./../common/TextFieldGroup";
 import PropTypes from "prop-types";
+import { addExperience } from "../../redux/actions/profileAction";
 
 const AddExperience = (props) => {
   const [state, setState] = useState({
@@ -23,11 +24,22 @@ const AddExperience = (props) => {
     if (props.errors) {
       setErrors(props.errors);
     }
-  });
+  },[props.errors]);
 
   function onSubmit(e) {
     e.preventDefault();
-    console.log("submitted");
+
+    const expData = {
+      company: state.company,
+      title: state.title,
+      location: state.location,
+      from: state.from,
+      to: state.to,
+      current: state.current,
+      description: state.description,
+    };
+
+    props.addExperience(expData, props.history);
   }
 
   function onChange(e) {
@@ -134,16 +146,17 @@ const AddExperience = (props) => {
 AddExperience.propTypes = {
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
+  addExperience: PropTypes.func.isRequired,
 };
 
 //Comes from root reducer
 const mapStateToProps = (state) => ({
   profile: state.profile,
-  errors: state.errors.profileErrors,
+  errors: state.errors.dashboardErrors,
 });
 
 // Reduced from action files
-const mapDispatchToProps = {};
+const mapDispatchToProps = { addExperience };
 
 export default connect(
   mapStateToProps,

@@ -1,4 +1,3 @@
-import axios from "axios";
 import http from "../../components/services/httpService";
 
 import {
@@ -8,6 +7,7 @@ import {
   GET_PROFILE_ERRORS,
   SET_CURRENT_USER,
   GET_DELETE_ERRORS,
+  GET_DASHBOARD_ERRORS,
 } from "./types";
 
 // Get current profile
@@ -31,7 +31,7 @@ export const getCurrentProfile = () => (dispatch) => {
 
 // Create profile
 export const createProfile = (profileData, history) => (dispatch) => {
-  axios
+  http
     .post("/api/profile", profileData)
     .then((res) => history.push("/dashboard"))
     .catch((errProfile) =>
@@ -74,4 +74,17 @@ export const deleteAccount = () => (dispatch) => {
         })
       );
   }
+};
+
+// Add Experience
+export const addExperience = (expData, history) => (dispatch) => {
+  http
+    .post("/api/profile/experience", expData)
+    .then((res) => history.push("/dashboard"))
+    .catch((errDash) =>
+      dispatch({
+        type: GET_DASHBOARD_ERRORS,
+        payload: errDash.response.data,
+      })
+    );
 };
