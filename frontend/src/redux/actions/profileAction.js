@@ -1,7 +1,7 @@
 import http from "../../components/services/httpService";
 
 import {
-  GET_PROFILE,
+  GET_PROFILE,GET_PROFILES,
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
   GET_PROFILE_ERRORS,
@@ -140,4 +140,23 @@ export const deleteEducation = (eduId) => (dispatch) => {
         })
       );
   }
+};
+
+//Get profiles
+export const getProfiles = () => (dispatch) => {
+  dispatch(setProfileLoading());
+  http
+    .get("/api/profile/all")
+    .then((res) =>
+      dispatch({
+        type: GET_PROFILES,
+        payload: res.data,
+      })
+    )
+    .catch((err) =>
+      dispatch({
+        type: GET_PROFILES,
+        payload: {},
+      })
+    );
 };

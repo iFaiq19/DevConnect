@@ -6,10 +6,10 @@ const InputGroup = ({
   name,
   placeholder,
   value,
-  error,
   onChange,
   icon,
   type,
+  error,
 }) => {
   return (
     <div className="input-group mb-3">
@@ -28,6 +28,7 @@ const InputGroup = ({
         placeholder={placeholder}
         name={name}
       />
+      {{ error } && <div className="invalid-feedback">{error}</div>}
     </div>
   );
 };
