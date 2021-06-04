@@ -9,6 +9,7 @@ import Spinner from "../common/Spinner";
 import { Link } from "react-router-dom";
 import ProfileActions from "./ProfileActions";
 import Experience from "./Experience";
+import Education from "./Education";
 
 const Dasboard = (props) => {
   useEffect(() => {
@@ -41,7 +42,8 @@ const Dasboard = (props) => {
             </Link>
           </p>
           <ProfileActions />
-          <Experience exp={profile.experience} />
+          <Experience experience={profile.experience} />
+          <Education education={profile.education} />
           <div style={{ marginBottom: "60px" }}>
             <button onClick={onDeleteClick} className="btn btn-danger">
               Delete My Account

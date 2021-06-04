@@ -48,6 +48,7 @@ const AddEducation = (props) => {
 
   function onCheck(e) {
     setState({
+      ...state,
       disabled: !state.disabled,
       current: !state.current,
     });
@@ -151,7 +152,6 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
   errors: state.errors.dashboardErrors,
 });
-
 
 // Reduced from action files
 const mapDispatchToProps = { addEducation };

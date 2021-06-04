@@ -121,3 +121,23 @@ export const deleteExperience = (expId) => (dispatch) => {
       );
   }
 };
+
+// Delete experience
+export const deleteEducation = (eduId) => (dispatch) => {
+  if (window.confirm("Are  you sure? This can NOT be undone!")) {
+    http
+      .delete(`/api/profile/education/${eduId}`)
+      .then((res) =>
+        dispatch({
+          type: GET_PROFILE,
+          payload: res.data,
+        })
+      )
+      .catch((errDelete) =>
+        dispatch({
+          type: GET_DELETE_ERRORS,
+          payload: errDelete.response.data,
+        })
+      );
+  }
+};

@@ -24,7 +24,7 @@ const AddExperience = (props) => {
     if (props.errors) {
       setErrors(props.errors);
     }
-  },[props.errors]);
+  }, [props.errors]);
 
   function onSubmit(e) {
     e.preventDefault();
@@ -48,6 +48,7 @@ const AddExperience = (props) => {
 
   function onCheck(e) {
     setState({
+      ...state,
       disabled: !state.disabled,
       current: !state.current,
     });

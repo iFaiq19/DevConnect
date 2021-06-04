@@ -5,11 +5,8 @@ import Moment from "react-moment";
 import { deleteExperience } from "../../redux/actions/profileAction";
 
 const Experience = (props) => {
-  function onDelete(id) {
-    props.deleteExperience(id);
-  }
 
-  const experience = props.exp.map((exp) => (
+  const experience = props.experience.map((exp) => (
     <tr key={exp._id}>
       <td>{exp.company}</td>
       <td>{exp.title}</td>
@@ -22,7 +19,10 @@ const Experience = (props) => {
         )}
       </td>
       <td>
-        <button className="btn btn-danger" onClick={onDelete}>
+        <button
+          onClick={() => deleteExperience(exp._id)}
+          className="btn btn-danger btn-sm"
+        >
           Delete
         </button>
       </td>
@@ -30,13 +30,13 @@ const Experience = (props) => {
   ));
   return (
     <div>
-      <h4 className="mb-4">Experience Credentials</h4>
+      <h2 className="my-4">Experience Credentials</h2>
       <table className="table">
         <thead>
           <tr>
             <th>Company</th>
-            <th>Title</th>
-            <th>Years</th>
+            <th className="hide-sm">Title</th>
+            <th className="hide-sm">Years</th>
             <th />
           </tr>
         </thead>
