@@ -3,8 +3,6 @@ import {
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
   GET_PROFILES,
-  GET_REPOS,
-  NO_REPOS,
 } from "../actions/types";
 
 const initialState = {
@@ -37,17 +35,6 @@ function profileReducer(state = initialState, action) {
       return {
         ...state,
         profile: null,
-      };
-    case GET_REPOS:
-      return {
-        ...state,
-        repos: action.payload,
-        loading: false,
-      };
-    case NO_REPOS:
-      return {
-        ...state,
-        repos: [],
       };
     default:
       return state;

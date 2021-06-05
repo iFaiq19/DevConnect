@@ -23,13 +23,13 @@ const Profile = (props) => {
   } else {
     profileContent = (
       <div>
-        <div class="row">
-          <div class="col-6">
-            <Link to="/developers" class="btn btn-light mb-3 float-left">
+        <div className="row">
+          <div className="col-6">
+            <Link to="/developers" className="btn btn-light mb-3 float-left">
               Back To Profiles
             </Link>
           </div>
-          <div class="col-md-6"></div>
+          <div className="col-md-6"></div>
         </div>
         <ProfileHeader profile={profile} />
         <ProfileAbout profile={profile} />
@@ -44,7 +44,7 @@ const Profile = (props) => {
     );
   }
   return (
-    <div class="profile">
+    <div className="profile">
       <div className="container">
         <div className="row">
           <div className="col-md-12">{profileContent}</div>

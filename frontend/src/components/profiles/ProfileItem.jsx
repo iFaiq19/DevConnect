@@ -7,7 +7,6 @@ const ProfileItem = (props) => {
   const { profile } = props;
   return (
     <div className="card card-body bg-light mb-3">
-      {console.log(props)}
       <div className="row">
         <div className="col-2">
           <img className="rounded-circle" src={profile.user.avatar} alt="" />

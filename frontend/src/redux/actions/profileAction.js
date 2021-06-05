@@ -9,8 +9,6 @@ import {
   SET_CURRENT_USER,
   GET_DELETE_ERRORS,
   GET_DASHBOARD_ERRORS,
-  GET_REPOS,
-  NO_REPOS,
 } from "./types";
 
 // Get current profile
@@ -179,24 +177,6 @@ export const getProfileByHandle = (handle) => (dispatch) => {
       dispatch({
         type: GET_PROFILE,
         payload: null,
-      })
-    );
-};
-
-export const getGithubRepos = (username, count, sort, clientId, clientSecrets) => (dispatch) => {
-  http
-    .get(
-      `https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${clientId}&client_secret=${clientSecrets}`
-    )
-    .then((res) =>
-      dispatch({
-        type: GET_REPOS,
-        payload: res.data,
-      })
-    )
-    .catch((err) =>
-      dispatch({
-        type: NO_REPOS,
       })
     );
 };
