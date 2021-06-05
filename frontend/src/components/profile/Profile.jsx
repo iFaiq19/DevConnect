@@ -31,10 +31,15 @@ const Profile = (props) => {
           </div>
           <div class="col-md-6"></div>
         </div>
-        <ProfileHeader profile={profile}/>
-        <ProfileAbout />
-        <ProfileCreds />
-        <ProfileGithub />
+        <ProfileHeader profile={profile} />
+        <ProfileAbout profile={profile} />
+        <ProfileCreds
+          education={profile.education}
+          experience={profile.experience}
+        />
+        {profile.githubusername && (
+          <ProfileGithub username={profile.githubusername} />
+        )}
       </div>
     );
   }

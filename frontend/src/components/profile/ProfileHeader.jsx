@@ -30,41 +30,60 @@ const ProfileHeader = ({ profile }) => {
               )}
             </p>
             <p>
-              <Link
-                className="text-white p-2 m-2"
-                to={{ pathname: profile.website ? profile.website : "" }}
-                target="_blank"
-              >
-                <i className="fas fa-globe fa-2x"></i>
-              </Link>
-              <Link
-                className="text-white p-2 m-2"
-                to={{ pathname: profile.social.twitter }}
-                target="_blank"
-              >
-                <i className="fab fa-twitter fa-2x"></i>
-              </Link>
-              <Link
-                className="text-white p-2 m-2"
-                to={{ pathname: profile.social.facebook }}
-                target="_blank"
-              >
-                <i className="fab fa-facebook fa-2x"></i>
-              </Link>
-              <Link
-                className="text-white p-2 m-2"
-                to={{ pathname: profile.social.linkedin }}
-                target="_blank"
-              >
-                <i className="fab fa-linkedin fa-2x"></i>
-              </Link>
-              <Link
-                className="text-white p-2 m-2"
-                to={{ pathname: profile.social.instagram }}
-                target="_blank"
-              >
-                <i className="fab fa-instagram fa-2x"></i>
-              </Link>
+              {isEmpty(profile.website) ? null : (
+                <Link
+                  className="text-white p-2 m-2"
+                  to={{ pathname: profile.website }}
+                  target="_blank"
+                >
+                  <i className="fas fa-globe fa-2x"></i>
+                </Link>
+              )}
+              {isEmpty(profile.social && profile.social.twitter) ? null : (
+                <Link
+                  className="text-white p-2 m-2"
+                  to={{ pathname: profile.social.twitter }}
+                  target="_blank"
+                >
+                  <i className="fab fa-twitter fa-2x"></i>
+                </Link>
+              )}
+              {isEmpty(profile.social && profile.social.facebook) ? null : (
+                <Link
+                  className="text-white p-2 m-2"
+                  to={{ pathname: profile.social.facebook }}
+                  target="_blank"
+                >
+                  <i className="fab fa-facebook fa-2x"></i>
+                </Link>
+              )}
+              {isEmpty(profile.social && profile.social.linkedin) ? null : (
+                <Link
+                  className="text-white p-2 m-2"
+                  to={{ pathname: profile.social.linkedin }}
+                  target="_blank"
+                >
+                  <i className="fab fa-linkedin fa-2x"></i>
+                </Link>
+              )}
+              {isEmpty(profile.social && profile.social.youtube) ? null : (
+                <Link
+                  className="text-white p-2 m-2"
+                  to={{ pathname: profile.social.youtube }}
+                  target="_blank"
+                >
+                  <i className="fab fa-youtube fa-2x"></i>
+                </Link>
+              )}
+              {isEmpty(profile.social && profile.social.instagram) ? null : (
+                <Link
+                  className="text-white p-2 m-2"
+                  to={{ pathname: profile.social.instagram }}
+                  target="_blank"
+                >
+                  <i className="fab fa-instagram fa-2x"></i>
+                </Link>
+              )}
             </p>
           </div>
         </div>

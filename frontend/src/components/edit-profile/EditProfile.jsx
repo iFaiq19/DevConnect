@@ -46,7 +46,7 @@ const EditProfile = (props) => {
   ];
 
   function onChange(e) {
-    setState({ ...state, [e.target.name]: e.target.value });
+    setState({ ...state, [e.target.name]: e.target.value  });
   }
 
   function onSubmit(e) {
